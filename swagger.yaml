@@ -54,7 +54,7 @@ definitions:
         type: "integer"
       status:
         $ref: "#/definitions/ChapterStatus"
-  ReleaseImage:
+  Image:
     type: "object"
     properties:
       small:
@@ -75,14 +75,32 @@ definitions:
     type: "object"
     properties: 
       clean:
-        type: "integer"
-        description: "avancement du clean"
+        type: "object"
+        properties:
+          users:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+          value:
+            type: "integer"
       traduction:
-        type: "integer"
-        description: "avancement de la traduction"
+        type: "object"
+        properties:
+          users:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+          value:
+            type: "integer"
       verified:
-        type: "integer"
-        description: "avancement de la verification"
+        type: "object"
+        properties:
+          users:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+          value:
+            type: "integer"
   Release:
     type: "object"
     properties:
@@ -94,7 +112,7 @@ definitions:
       description:
         type: "string"
       image: 
-        $ref: "#/definitions/ReleaseImage"
+        $ref: "#/definitions/Image"
       category:
         type: "string"
         enum:
@@ -110,6 +128,42 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Chapter"
-      complete:
-        type: "boolean"
-        default: false
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name: 
+        type: "string"
+      avatar:
+        $ref: "#/definitions/Image"
+      jobs:
+        type: "array"
+        items: 
+          type: "string"
+  New:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      title:
+        type: "string"
+      content: 
+        type: "string"
+      author:
+        $ref: "#/definitions/User"
+      comments:
+        type: "array"
+        items:
+          $ref: "#/definitions/Comment"
+  Comment:
+    description: "TO VERIFY"
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      author:
+        type: "string"
+      content: 
+        type: "string"
+      
