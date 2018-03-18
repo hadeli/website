@@ -1,0 +1,126 @@
+swagger: "2.0"
+info:
+  version: "5.0.0"
+  title: "Oasis-Scantrad"
+host: "api.oasis-scantrad.fr"
+basePath: "/"
+tags:
+- name: "releases"
+  description: "Les releases"
+- name: "news"
+  description: "the latest news"
+schemes:
+- "http"
+paths:
+  /releases:
+    get:
+      tags:
+      - "releases"
+      summary: "Obtain all releases"
+      description: ""
+      operationId: "getReleases"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "All is good mtfa"
+          schema:
+            $ref: "#/definitions/Release"
+    put:
+      tags:
+      - "releases"
+      summary: "Update an existing pet"
+      description: ""
+      operationId: "updatePet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Pet not found"
+        405:
+          description: "Validation exception"
+definitions:
+  Chapter:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "Int64"
+      chapter:
+        type: "integer"
+      status:
+        $ref: "#/definitions/ChapterStatus"
+  ReleaseImage:
+    type: "object"
+    properties:
+      small:
+        type: "string"
+        format: "URL"
+        description: "small image link"
+      medium:
+        type: "string"
+        format: "URL"
+      big:
+        type: "string"
+        format: "URL"
+      original:
+        type: "string"
+        format: "URL"
+        description: "original image size"
+  ChapterStatus:
+    type: "object"
+    properties: 
+      clean:
+        type: "integer"
+        description: "avancement du clean"
+      traduction:
+        type: "integer"
+        description: "avancement de la traduction"
+      verified:
+        type: "integer"
+        description: "avancement de la verification"
+  Release:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      title:
+        type: "string"
+      description:
+        type: "string"
+      image: 
+        $ref: "#/definitions/ReleaseImage"
+      category:
+        type: "string"
+        enum:
+        - "manga"
+        - "comic"
+        - "doujin"
+        - "one-shot"
+      tags:
+        type: "array"
+        items:
+          type: "string"
+      chapters:
+        type: "array"
+        items:
+          $ref: "#/definitions/Chapter"
+      complete:
+        type: "boolean"
+        default: false
