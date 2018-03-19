@@ -18,31 +18,73 @@ paths:
       - "releases"
       summary: "Obtain all releases"
       operationId: "getReleases"
-      consumes:
-      - "application/json"
       produces:
       - "application/json"
       responses:
         200:
-          description: "All is good mtfa"
+          description: "All releases"
           schema:
-            $ref: "#/definitions/Release"
-    put:
+            type: "array"
+            items:
+              $ref: "#/definitions/Release"
+  /releases/{releaseId}:
+    get:
       tags:
       - "releases"
-      summary: "Update an existing pet"
-      description: ""
-      consumes:
-      - "application/json"
+      summary: "Obtain one release"
+      operationId: "getRelease"
+      parameters:
+        - in: path
+          name: releaseId
+          required: true
       produces:
       - "application/json"
       responses:
-        400:
-          description: "Invalid ID supplied"
+        200:
+          description: "One release"
+          schema:
+            $ref: "#/definitions/Release"
         404:
-          description: "Pet not found"
-        405:
-          description: "Validation exception"
+          description: "Release doesn't exist"
+          schema:
+            $ref: "#/definitions/Error"
+  /news:
+    get:
+      tags:
+      - "news"
+      summary: "Obtain list of news"
+      operationId: "getNews"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "All news"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/New"
+  /news/{newsId}:
+    get:
+      tags:
+      - "news"
+      summary: "Obtain one new"
+      operationId: "getNew"
+      parameters:
+        - in: path
+          name: newsId
+          required: true
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "One new"
+          schema:
+            $ref: "#/definitions/New"
+        404:
+          description: "New doesn't exist"
+          schema:
+            $ref: "#/definitions/Error"
+
 definitions:
   Chapter:
     type: "object"
@@ -54,6 +96,9 @@ definitions:
         type: "integer"
       status:
         $ref: "#/definitions/ChapterStatus"
+      datetime:
+        type: "string"
+        format: "date-time"
   Image:
     type: "object"
     properties:
@@ -156,6 +201,9 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Comment"
+      datetime:
+        type: "string"
+        format: "date-time"
   Comment:
     description: "TO VERIFY"
     type: "object"
@@ -165,5 +213,17 @@ definitions:
       author:
         type: "string"
       content: 
+        type: "string"
+      datetime:
+        type: "string"
+        format: "date-time"
+  Error:
+    type: "object"
+    properties:
+      code: 
+        type: "integer"
+      description:
+        type: "string"
+      message:
         type: "string"
       
