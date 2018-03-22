@@ -37,6 +37,7 @@ paths:
         - in: path
           name: releaseId
           required: true
+          type: integer
       produces:
       - "application/json"
       responses:
@@ -73,6 +74,7 @@ paths:
         - in: path
           name: newsId
           required: true
+          type: integer
       produces:
       - "application/json"
       responses:
@@ -118,7 +120,7 @@ definitions:
         description: "original image size"
   ChapterStatus:
     type: "object"
-    properties: 
+    properties:
       clean:
         type: "object"
         properties:
@@ -156,7 +158,7 @@ definitions:
         type: "string"
       description:
         type: "string"
-      image: 
+      image:
         $ref: "#/definitions/Image"
       category:
         type: "string"
@@ -178,13 +180,13 @@ definitions:
     properties:
       id:
         type: "integer"
-      name: 
+      name:
         type: "string"
       avatar:
         $ref: "#/definitions/Image"
       jobs:
         type: "array"
-        items: 
+        items:
           type: "string"
   New:
     type: "object"
@@ -193,7 +195,7 @@ definitions:
         type: "integer"
       title:
         type: "string"
-      content: 
+      content:
         type: "string"
       author:
         $ref: "#/definitions/User"
@@ -212,7 +214,7 @@ definitions:
         type: "integer"
       author:
         type: "string"
-      content: 
+      content:
         type: "string"
       datetime:
         type: "string"
@@ -220,10 +222,9 @@ definitions:
   Error:
     type: "object"
     properties:
-      code: 
+      code:
         type: "integer"
       description:
         type: "string"
       message:
         type: "string"
-      
